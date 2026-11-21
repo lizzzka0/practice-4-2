@@ -14,7 +14,7 @@ function mapFromServer(dto: BookDTO): Book {
   return {
     id: dto.id,
     title: dto.title,
-    authors: dto.author,
+    authors: [dto.author],
     year: dto.year,
     rating: dto.rating,
   };
