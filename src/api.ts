@@ -1,6 +1,6 @@
 import type { Book } from './task1-types';
 
-const API_URL = 'https://6b018a171c637a569e5324e0.mockapi.io/api/books123';
+const API_URL = 'https://6b018a171c637a569e5324e0.mockapi.io/api/books';
 
 interface BookDTO {
   id: string;
@@ -32,7 +32,12 @@ function mapToServer(book: Book): BookDTO {
 
 export async function fetchBooks(): Promise<Book[]> {
   const response = await fetch(API_URL);
-  const dtos: BookDTO[] = await response.json();
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  const dtos: BookDTO[] = response.json();
   return dtos.map(mapFromServer);
 }
 
