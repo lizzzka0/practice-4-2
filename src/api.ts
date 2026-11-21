@@ -37,14 +37,13 @@ export async function fetchBooks(): Promise<Book[]> {
     throw new Error(`HTTP ${response.status}`);
   }
 
-  const dtos: BookDTO[] = response.json();
+  const dtos: BookDTO[] = await response.json();
   return dtos.map(mapFromServer);
 }
 
 export async function saveBook(book: Book): Promise<Book> {
   const response = await fetch(API_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(mapToServer(book)),
   });
 
