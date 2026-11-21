@@ -14,7 +14,7 @@ function mapFromServer(dto: BookDTO): Book {
   return {
     id: dto.id,
     title: dto.title,
-    authors: [dto.author],
+    authors: dto.author,
     year: dto.year,
     rating: dto.rating,
   };
@@ -44,6 +44,7 @@ export async function fetchBooks(): Promise<Book[]> {
 export async function saveBook(book: Book): Promise<Book> {
   const response = await fetch(API_URL, {
     method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(mapToServer(book)),
   });
 
